@@ -1,0 +1,13 @@
+.Admin{
+    padding-bottom: 30px;
+  
+}
+.ppp{
+    font-family: 'Potta One', cursive;
+    color: #e3b448;
+}
+.adminlinks{
+    background-color: #3a6b35;
+    display: flex;
+    flex-direction: row;
+}

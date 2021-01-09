@@ -1,0 +1,42 @@
+.Header{
+    background-color: #cbd18f;
+}
+.pp {
+    color: #e3b448;
+    font-family: 'Potta One', cursive;
+}
+.div1header{
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.div1header div i {
+    color: #e3b448;
+}
+
+.ar1div1header{
+    width: 50%;
+}
+.ar2div1header{
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-self: flex-end;
+}
+
+.div2header{
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-between;
+    justify-content: space-around;
+}
+
+  
+
+
+
