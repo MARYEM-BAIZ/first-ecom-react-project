@@ -1,5 +1,6 @@
 import './ajoutarticle.css';
 import React , { Component } from 'react';
+import Axios from 'axios';
 import {
     BrowserRouter as Router,
     Switch,
@@ -7,7 +8,138 @@ import {
     Link
   } from "react-router-dom";
 
-function Ajoutarticle() {
+class Ajoutarticle extends Component {
+
+  constructor(props){
+    super(props);
+
+    this.state ={
+      titre:"",
+      description:"",
+      prix:"",
+      quantite:"",
+      image:"image",
+      souscategorie_id:"",
+       souscategories:[]
+
+    }
+
+}
+
+
+
+componentDidMount(){
+  const url= 'http://localhost:8000/api/souscategories' ;
+    Axios.get(url).then(response => {
+     // console.log(response.data);
+    this.setState({
+      souscategories:response.data
+    })
+  });
+
+}
+
+
+   
+inputhandlertitre  = (event) => {
+  this.setState({
+
+      titre: event.target.value
+
+     });
+  
+}
+
+
+inputhandlerdescription  = (event) => {
+  this.setState({
+
+      description: event.target.value
+
+     });
+  
+}
+
+
+inputhandlerprix  = (event) => {
+  this.setState({
+
+      prix: event.target.value
+
+     });
+  
+}
+
+
+inputhandlerquantite  = (event) => {
+  this.setState({
+
+      quantite: event.target.value
+
+     });
+  
+}
+
+
+inputhandlersouscategorie_id  = (event) => {
+  console.log(event.target.value);
+    this.setState({
+ 
+        souscategorie_id: event.target.value
+    
+       });
+       
+ }
+
+
+
+ ajouter  = (event) => {
+  event.preventDefault();
+
+const url = "http://localhost:8000/api/articles";
+const article  ={ 
+  titre: this.state.titre,
+  description:this.state.description,
+  prix:this.state.prix,
+  quantite:this.state.quantite,
+  image:this.state.image,
+
+  souscategorie_id: this.state.souscategorie_id
+};
+
+console.log(article);
+
+Axios.post(url ,article)
+.then(response => {
+   console.log(response);
+
+
+})
+.catch(error=> {
+console.log(error);
+});
+
+}
+
+
+
+
+
+
+
+
+   render(){
+
+     
+    let souscategories= this.state.souscategories.map( souscategorie => {
+      
+      return ( 
+     <option   key={souscategorie.id} value={souscategorie.id} >{souscategorie.nom}</option>
+     )
+   });
+
+
+
   return (
     <div className="Ajoutarticle my-4">
       
@@ -17,37 +149,36 @@ function Ajoutarticle() {
            <form className="" action=""  >
 
      <label className="ecriture" >Titre :
-     <input     type="text" name="titre" /> 
+     <input  onChange={this.inputhandlertitre}   type="text" name="titre" /> 
      </label>
 
      <label className="ecriture" >Description :
-     <input     type="text" name="description" /> 
+     <input  onChange={this.inputhandlerdescription}   type="text" name="description" /> 
      </label>
 
      <label className="ecriture" >Prix :
-     <input     type="text" name="prix" /> 
+     <input  onChange={this.inputhandlerprix}   type="text" name="prix" /> 
      </label>
 
      <label className="ecriture" >Quantité :
-     <input     type="text" name="quantite" /> 
+     <input   onChange={this.inputhandlerquantite}  type="text" name="quantite" /> 
      </label>
 
      <label  >uploader une image :
      <input   type="file" name="image" /> 
      </label>
 
-     <select style={{display:"block",marginRight:"auto",marginLeft:"auto",marginBottom:"10px",marginTop:"10px"}}  name="souscategorie_id">
-     <option value="">souscat1</option>
-     <option value="">souscat2</option>
+     <select style={{display:"block",marginRight:"auto",marginLeft:"auto",marginBottom:"10px",marginTop:"10px"}} onChange={this.inputhandlersouscategorie_id}   name="souscategorie_id">
+     { souscategories}
     </select>
      
-     <input   style={{border:"none",padding:"7px 15px",backgroundColor:"#3a6b35",color:"#e3b448",display:"block",marginRight:"auto",marginLeft:"auto"}} type="submit" value="ajouter"/>
+     <input onClick={this.ajouter}  style={{border:"none",padding:"7px 15px",backgroundColor:"#3a6b35",color:"#e3b448",display:"block",marginRight:"auto",marginLeft:"auto"}} type="submit" value="ajouter"/>
    </form>
 
    </div>
 
     </div>
-  );
+  )};
 }
 
 export default Ajoutarticle;
